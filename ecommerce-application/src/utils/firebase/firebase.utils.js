@@ -24,7 +24,17 @@ provider.setCustomParameters({
 })
 
 export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+export const signInWithGooglePopup = async() => {
+    try {
+        await signInWithPopup(auth, provider);
+    } catch (err) {
+        if (err.code === 'auth/popup-closed-by-user') {
+            throw new Error('The authentication popup was closed before completing the sign-in process.');
+        } else {
+            throw err; // Re-throw other errors for further handling
+        }
+    }
+};
 
 //Database
 export const db = getFirestore();
