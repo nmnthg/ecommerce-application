@@ -101,7 +101,7 @@ export const CartProvider = ({children}) => {
     } 
 
     const setIsCartOpen = (bool) => {
-        dispatch({type: CART_ACTION_TYPES.SET_IS_CART_OPEN, payload: bool});
+        dispatch(createAction(CART_ACTION_TYPES.SET_IS_CART_OPEN, bool));
     }
 
 
@@ -111,14 +111,22 @@ export const CartProvider = ({children}) => {
         
         const payload = {
             cartItems,
-            cartCount: newCartTotalItems,
-            cartTotal: newCartTotalPrice,
+            cartTotalItems: newCartTotalItems,
+            cartTotalPrice: newCartTotalPrice,
           };
       
           dispatch(createAction(CART_ACTION_TYPES.SET_CART_ITEMS, payload));
     };
 
-    const value = {isCartOpen, setIsCartOpen, cartItems, addItemToCart, removeItemFromCart, clearItemFromCart, cartTotalItems, cartTotalPrice};
+    const value = {
+        isCartOpen, 
+        setIsCartOpen, 
+        cartItems, 
+        addItemToCart, 
+        removeItemFromCart, 
+        clearItemFromCart, 
+        cartTotalItems, 
+        cartTotalPrice};
 
-    return <CartContext.Provider value={value}>{children}</CartContext.Provider>
+    return <CartContext.Provider value={value}>{children}</CartContext.Provider> 
 }
