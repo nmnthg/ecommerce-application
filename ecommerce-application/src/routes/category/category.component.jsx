@@ -7,12 +7,12 @@ import './category.styles.scss';
 
 const Category = () => {
     const { category } = useParams();
-    const { categoriesMap } = useSelector(selectCategoriesMap);
-    const [products, setProducts] = useState([]);
+    const categoriesMap = useSelector(selectCategoriesMap);
+    const [products, setProducts] = useState(categoriesMap[category]);
 
     useEffect(() => {
         setProducts(categoriesMap[category]);
-    }, [category, categoriesMap]);
+    }, [categoriesMap, category]);
 
     return (
         <Fragment>
@@ -28,7 +28,6 @@ const Category = () => {
             </div>
         </Fragment>
     )
-
-}
+};
 
 export default Category;

@@ -4,7 +4,7 @@ import { selectCategoriesMap } from '../../store/categories/category.selector';
 import './categories-preview.styles.scss';
 
 const CategoriesPreview = () => {
-    const { categoriesMap } = useSelector(selectCategoriesMap);
+    const categoriesMap = useSelector(selectCategoriesMap);
 
     return (
         <div className='shop-container'>
