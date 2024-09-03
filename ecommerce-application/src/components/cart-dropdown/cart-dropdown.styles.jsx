@@ -18,8 +18,9 @@ export const CartDropDownContainer = styled.div`
   ${GoogleSignInButton},
   ${InvertedButton} {
     margin-top: auto;
+    font-size: 12px;  
+    padding: 0 12px;  
   }
-
 `
 
 export const EmptyMessage = styled.span`
@@ -31,5 +32,5 @@ export const CartItems = styled.div`
   height: 240px;
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  overflow: auto;  
 `
