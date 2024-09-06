@@ -11,6 +11,7 @@ export const categoriesReducer = (state = CATEGORIES_INITIAL_STATE, action) => {
 
     switch (type) {
         case CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START:
+            console.log('Fetching categories started');
             return { ...state, isLoading: true };
         case CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS:
             return { ...state, categories: payload, isLoading: false };
