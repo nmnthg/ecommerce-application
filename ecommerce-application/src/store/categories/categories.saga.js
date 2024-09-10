@@ -6,7 +6,7 @@ import { CATEGORIES_ACTION_TYPES } from './category.types'; // Import action typ
 // Generator function to handle the fetch operation
 export function* fetchCategoriesAsync() {
     try {
-        // Call the function to fetch categories from Firebase and wait for it to complete
+        // Call the function to fetch categories from Firebase and wait for it to complete. The "yield" keyword pause the saga until the function call is compeleted
         const categoryArray = yield call(getCategoriesAndDocuments, 'categories');
         
         // Dispatch the success action with the fetched categories
@@ -25,6 +25,6 @@ export function* onFetchCategories() {
 
 // Root saga to combine all sagas
 export function* categoriesSaga() {
-    // Run all sagas concurrently. Here, it runs onFetchCategories saga
+    // Run all sagas concurrently. Here, it runs onFetchCategories saga. If you had more sagas to run concurrently, you would add them to the array.
     yield all([call(onFetchCategories)]);
 }

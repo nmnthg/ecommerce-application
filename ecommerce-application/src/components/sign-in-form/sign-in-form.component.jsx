@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { createUserDocumentFromAuth, signInWithGooglePopup, signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
+import { signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component";
 import Button, {BUTTON_TYPE_CLASSES} from "../button/button.component";
-import {ButtonContainer, SignInContainer} from './sign-in-form.styles.jsx';
+import { ButtonContainer, SignInContainer} from './sign-in-form.styles.jsx';
+import { useDispatch } from "react-redux";
+import { USER_ACTION_TYPES } from "../../store/user/user.types.js";
 
 
 const defaultFormFields = {
@@ -11,6 +13,7 @@ const defaultFormFields = {
 }
 
 const SignInForm = () => {
+    const dispatch = useDispatch();
     const [formFields, setFormFields] = useState(defaultFormFields);
     const {email, password} = formFields;
 
@@ -44,11 +47,7 @@ const SignInForm = () => {
     }
 
     const signInWithGoogle = async () => {
-        try {
-            await signInWithGooglePopup();
-        } catch (err) {
-            console.log(err.message);
-        };
+        dispatch(USER_ACTION_TYPES.GOOGLE_SIGN_IN_START);
     }
     
     return (
