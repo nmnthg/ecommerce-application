@@ -41,6 +41,7 @@ provider.setCustomParameters({
 })
 
 export const auth = getAuth();
+
 export const signInWithGooglePopup = async() => {
     try {
         await signInWithPopup(auth, provider);
@@ -94,7 +95,6 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
         }
     }
     
-    return userDocRef;
 };
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
@@ -112,3 +112,19 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 export const signOutUser = () => signOut(auth);
 
 export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback)
+
+export const getCurrentUser = () => {
+    // Return a Promise that will resolve with the user's authentication state or reject in case of an error
+    return new Promise((resolve, reject) => {
+        // Use Firebase's `onAuthStateChanged` to listen for changes in the user's authentication state
+        const unsubscribe = onAuthStateChanged(
+            auth,  // First argument: The Firebase auth instance we want to monitor
+            (userAuth) => {
+                // Callback is executed when the auth state changes (user logs in, logs out, or status updates)
+                unsubscribe(); // Unsubscribe immediately after getting the current auth state (stop listening for future changes)
+                resolve(userAuth); // Resolve the Promise with the `userAuth` object (either the current user or `null` if not logged in)
+            },
+            reject // If there's an error during this process, reject the Promise and pass the error to the caller
+        );
+    });
+};
