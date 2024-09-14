@@ -2,7 +2,7 @@ import './checkout.styles.scss'
 import CheckoutItem from '../../components/checkout-item/checkout-item.component copy';
 import { useSelector } from 'react-redux';
 import { selectCartItems, selectCartTotal } from '../../store/cart/cart.selector';
-
+import PaymentForm from '../../components/payment-form/payment-form.component';
 
 
 const CheckOut = () => {
@@ -30,6 +30,7 @@ const CheckOut = () => {
             </div>
             {cartItems.map((cartItem) => <CheckoutItem key= {cartItem.id} cartItem={cartItem}/>)}
             <span className='total'>Total: $ {cartTotalPrice}</span>
+            <PaymentForm/>
         </div>
     )
 };

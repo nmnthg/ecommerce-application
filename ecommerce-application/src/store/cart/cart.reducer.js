@@ -6,37 +6,50 @@ const CART_INITIAL_STATE = {
 }
 
 const addCartItem = (cartItems, productToAdd) => {
-    const existingCartItem = cartItems.find(item => item.id === productToAdd.id);
-    if (existingCartItem) {
-        return cartItems.map(cartItem =>
-            cartItem.id === productToAdd.id ? 
-            { ...cartItem, quantity: cartItem.quantity + 1, totalPrice: cartItem.totalPrice + cartItem.price } : cartItem
-        );
-    }
-    return [...cartItems, { ...productToAdd, quantity: 1, totalPrice: productToAdd.price }];
-};
-
-const removeCartItem = (cartItems, productToRemove) => {
-    const existingCartItem = cartItems.find(cartItem => cartItem.id === productToRemove.id);
-    if (existingCartItem.quantity === 1) {
-        return cartItems.filter(cartItem => cartItem.id !== productToRemove.id);
-    }
-    return cartItems.map(cartItem => 
-        cartItem.id === productToRemove.id
-            ? { ...cartItem, quantity: cartItem.quantity - 1, totalPrice: cartItem.totalPrice - cartItem.price }
-            : cartItem
+    const existingCartItem = cartItems.find(
+      (cartItem) => cartItem.id === productToAdd.id
     );
-};
+  
+    if (existingCartItem) {
+      return cartItems.map((cartItem) =>
+        cartItem.id === productToAdd.id
+          ? { ...cartItem, quantity: cartItem.quantity + 1 }
+          : cartItem
+      );
+    }
+  
+    return [...cartItems, { ...productToAdd, quantity: 1 }];
+  };
 
-const clearCartItem = (cartItems, productToClear) => {
-    return cartItems.filter(cartItem => cartItem.id !== productToClear.id);
-}
+  const removeCartItem = (cartItems, cartItemToRemove) => {
+    // find the cart item to remove
+    const existingCartItem = cartItems.find(
+      (cartItem) => cartItem.id === cartItemToRemove.id
+    );
+  
+    // check if quantity is equal to 1, if it is remove that item from the cart
+    if (existingCartItem.quantity === 1) {
+      return cartItems.filter((cartItem) => cartItem.id !== cartItemToRemove.id);
+    }
+  
+    // return back cartitems with matching cart item with reduced quantity
+    return cartItems.map((cartItem) =>
+      cartItem.id === cartItemToRemove.id
+        ? { ...cartItem, quantity: cartItem.quantity - 1 }
+        : cartItem
+    );
+  };
+  
+  const clearCartItem = (cartItems, cartItemToClear) =>
+    cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
+
 
 export const cartSlice = createSlice({
     name: 'cart',
     initialState: CART_INITIAL_STATE,
     reducers: {
         addItemToCart: (state, action) => {
+            console.log('Payload:', action.payload);
             state.cartItems = addCartItem(state.cartItems, action.payload);
         },
         removeItemFromCart: (state, action) => {
