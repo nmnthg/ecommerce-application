@@ -1,5 +1,5 @@
 import Button, {BUTTON_TYPE_CLASSES} from '../button/button.component';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addItemToCart } from '../../store/cart/cart.reducer.js';
 import { Footer, ProductCardContainer } from './product-card.styles.jsx';
 
